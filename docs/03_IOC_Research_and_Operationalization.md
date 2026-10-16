@@ -1,6 +1,6 @@
 # Threat Intelligence Briefing: IOC Research & Operationalization
 
-**Project Code:** `CDL-DET-V2`  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
 **Document ID:** `DOC-03`  
 **Classification:** TLP:AMBER - Cyberion Internal SOC & Threat Intelligence  
 **Author:** Abhijeet Amarnath Sharma - Senior Detection Engineer & Threat Intel Lead  
@@ -12,7 +12,7 @@
 
 ## 1. Executive Summary
 
-During the `CDL-DET-V2` threat detection and response engagement, Cyberion Defense Labs extracted, verified, and operationalized indicators of compromise (IOCs) associated with an advanced persistent threat (APT) campaign targeting finance, database, and engineering assets.
+During the `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`) threat detection and response engagement, Cyberion ThreatShield extracted, verified, and operationalized indicators of compromise (IOCs) associated with an advanced persistent threat (APT) campaign targeting finance, database, and engineering assets.
 
 This intelligence report compiles all technical indicators across network, host, and domain layers, details OSINT and pivot research, and outlines the automated operationalization workflow used to enforce multi-layer defense across firewalls, DNS resolvers, endpoint detection agents, and SIEM correlation watchlists.
 

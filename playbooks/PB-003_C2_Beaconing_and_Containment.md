@@ -1,7 +1,7 @@
 # Incident Response Playbook: PB-003
 
 **Playbook Title:** Command & Control (C2) Beaconing & Egress Containment Playbook  
-**Project Code:** `CDL-DET-V2`  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
 **Playbook ID:** `PB-003`  
 **Target Threat Category:** Command and Control (`TA0011`), Exfiltration (`TA0010`)  
 **Standard Compliance:** NIST SP 800-61 Rev. 2, SANS Incident Handler's Handbook  

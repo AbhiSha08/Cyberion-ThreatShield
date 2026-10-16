@@ -1,5 +1,5 @@
 """
-Pytest entry point referencing scripts/test_detections.py
+Cyberion ThreatShield — Pytest entry point referencing scripts/test_detections.py
 """
 from scripts.test_detections import (
     TestSigmaSchemaValidation,

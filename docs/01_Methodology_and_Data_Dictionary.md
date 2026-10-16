@@ -2,10 +2,10 @@
 # Methodology & Data Dictionary
 ## Detection Engineering & Threat Hunting Engagement
 
-> **Engagement Code:** `CDL-DET-V2`
+> **Engagement Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)
 > **Deliverable:** Module 4.1 — Methodology & Data Dictionary
 > **Classification:** INTERNAL — RESTRICTED
-> **Prepared by:** Cyberion Defense Labs — Detection Engineering Team
+> **Prepared by:** Cyberion ThreatShield — Detection Engineering Team
 > **Date:** August 2026
 
 ---
@@ -27,7 +27,7 @@
 
 ## 1. Engagement Overview
 
-**CDL-DET-V2** is a structured, four-phase Detection Engineering and Threat Hunting engagement executed by the Cyberion Defense Labs team. The objective is to build a production-grade, fully-validated detection content repository covering the complete MITRE ATT&CK kill chain for a targeted corporate enterprise environment.
+**Cyberion ThreatShield** (Project Code: `PROJ-CYBE-260802`, internal baseline: `CDL-DET-V2`) is a structured, four-phase detection engineering and threat hunting platform developed by the Cyberion ThreatShield team. The objective is to build a production-grade, fully-validated detection content repository covering the complete MITRE ATT&CK kill chain for a targeted corporate enterprise environment.
 
 **Phase 1 Scope (this document):**
 - Repository scaffolding and tooling

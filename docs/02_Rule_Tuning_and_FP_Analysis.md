@@ -1,6 +1,6 @@
 # Detection Engineering Guide: Rule Tuning & False-Positive Analysis
 
-**Project Code:** `CDL-DET-V2`  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
 **Document ID:** `DOC-02`  
 **Classification:** Internal Detection Engineering Standard  
 **Author:** Abhijeet Amarnath Sharma - Senior Detection Engineer  
@@ -14,7 +14,7 @@
 
 In enterprise Security Operations Centers (SOCs), detection rules authored in isolation frequently generate unacceptable false-positive (FP) volumes when deployed into production. A rule that triggers 50 benign alerts per day is actively harmful: it consumes analyst cognitive bandwidth, erodes trust in alert fidelity, and leads directly to alert fatigue where true-positive adversary intrusions are missed.
 
-The Cyberion Defense Labs Detection Engineering Lifecycle mandates a **Three-Gate Tuning Methodology**:
+The Cyberion ThreatShield Detection Engineering Lifecycle mandates a **Three-Gate Tuning Methodology**:
 
 ```text
 [ Raw Sigma Rule ] ──> Gate 1: Syntax & Telemetry Validation (Zero Errors)

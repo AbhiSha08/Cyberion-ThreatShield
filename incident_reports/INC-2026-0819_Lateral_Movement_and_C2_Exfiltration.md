@@ -1,7 +1,7 @@
 # Incident Case Report: INC-2026-0819
 
 **Incident Title:** Internal Domain Lateral Movement, Kerberoasting, and High-Volume Exfiltration  
-**Project Code:** `CDL-DET-V2`  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
 **Incident ID:** `INC-2026-0819`  
 **Date of Incident:** 2026-08-19  
 **Severity Rating:** **CRITICAL** (P1)  
@@ -13,7 +13,7 @@
 
 ## 1. Executive Summary & Impact Assessment
 
-On August 19, 2026, the Cyberion Defense Labs SOC responded to a high-severity alert chain indicating enterprise-wide lateral movement and massive data exfiltration.
+On August 19, 2026, the Cyberion ThreatShield SOC responded to a high-severity alert chain indicating enterprise-wide lateral movement and massive data exfiltration.
 
 Following the initial beachhead established on finance workstation `WS-FIN-04` (see `INC-2026-0814`), the adversary expanded access across the internal network. Utilizing harvested credentials and Kerberos TGS tickets requested with legacy RC4-HMAC encryption (`T1558.003`), the adversary pivoted laterally across internal subnets to development workstation **`WS-DEV-02.cyberion.local`** (`10.20.1.22`) and primary domain controller **`DC-PROD-01.cyberion.local`** (`10.20.0.10`).
 

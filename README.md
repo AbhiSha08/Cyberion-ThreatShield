@@ -1,4 +1,4 @@
-# Cyberion Defense Lab — Detection Engineering & Threat Hunting Program
+# Cyberion ThreatShield: Detection Engineering & Threat Hunting Platform
 
 <div align="center">
 
@@ -9,7 +9,7 @@
 [![Validation Pass](https://img.shields.io/badge/Rule%20Validation-16%2F16%20PASS-success.svg)](scripts/validate_rules.py)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
-**Project Code:** `CDL-DET-V2` • **Engagement:** Enterprise Detection Engineering, Telemetry Simulation & Incident Response  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`) • **Domain:** Cybersecurity / Detection Engineering & Threat Hunting  
 **Lead Detection Engineer & Threat Hunter:** Abhijeet Amarnath Sharma
 
 </div>
@@ -18,7 +18,7 @@
 
 ## 1. Overview & Architecture
 
-**Cyberion Defense Lab (`CDL-DET-V2`)** is an enterprise-grade detection engineering, threat hunting, and incident response repository designed to detect, analyze, and contain multi-stage adversary intrusions across Windows, Linux, and network perimeters.
+Cyberion ThreatShield is a cybersecurity detection engineering and threat hunting platform focused on strengthening SOC capabilities through proactive threat detection and incident investigation. It features a validated Sigma detection rule library mapped to MITRE ATT&CK, automated telemetry validation, hypothesis-driven threat hunts, forensic investigations, and repeatable incident response playbooks.
 
 Built strictly around the **Sigma detection standard** and **MITRE ATT&CK v14 Enterprise Framework**, this repository operates with zero heavy database overhead or web server dependencies—executing high-performance detection validation, statistical threat hunting, and automated schema checks via Python.
 
@@ -64,7 +64,7 @@ Built strictly around the **Sigma detection standard** and **MITRE ATT&CK v14 En
 ## 2. Exhaustive Project Directory Structure
 
 ```text
-Cyberion Defense Lab/
+Cyberion ThreatShield/
 ├── datasets/                                      # Realistic enterprise telemetry datasets (JSON)
 │   ├── linux_auth_auditd_sample.json              # 24 records: SSH brute-force, sudo escalation, /etc/shadow access, cron writes
 │   ├── windows_security_sysmon_sample.json        # 45 records: RDP brute-force, PowerShell -enc, certutil, LSASS access, SAM read
@@ -136,19 +136,19 @@ Cyberion Defense Lab/
 ## 3. Functional Requirements (FR-1 to FR-12) Verification Status
 
 | Requirement ID | Specification | Implementation Deliverable | Verification Status |
-| :--- | :--- | :--- | :---: |
+| :--- | :--- | :--- | :--- |
 | **FR-1: Scaffolding** | Strict directory structure across all tactics | Root repository tree | ✅ **VERIFIED (PASS)** |
-| **FR-2: Dependencies** | Modern Python dependencies pinned in requirements | [`requirements.txt`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/requirements.txt) | ✅ **VERIFIED (PASS)** |
-| **FR-3: Telemetry** | Realistic enterprise schemas (Windows, Zeek, Linux) | [`scripts/generate_telemetry.py`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/scripts/generate_telemetry.py) | ✅ **VERIFIED (PASS)** |
-| **FR-4: Data Dictionary** | Comprehensive log dictionary & schema mapping | [`docs/01_Methodology_and_Data_Dictionary.md`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/docs/01_Methodology_and_Data_Dictionary.md) | ✅ **VERIFIED (PASS)** |
-| **FR-5: Rule Engine** | Standalone Python validation harness | [`scripts/validate_rules.py`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/scripts/validate_rules.py) | ✅ **VERIFIED (PASS)** |
-| **FR-6: Sigma Rules** | 16 production rules with PRD Section 8 schema | [`rules/**/*.yml`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/rules/) (16 files) | ✅ **VERIFIED (PASS)** |
+| **FR-2: Dependencies** | Modern Python dependencies pinned in requirements | [`requirements.txt`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/requirements.txt) | ✅ **VERIFIED (PASS)** |
+| **FR-3: Telemetry** | Realistic enterprise schemas (Windows, Zeek, Linux) | [`scripts/generate_telemetry.py`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/scripts/generate_telemetry.py) | ✅ **VERIFIED (PASS)** |
+| **FR-4: Data Dictionary** | Comprehensive log dictionary & schema mapping | [`docs/01_Methodology_and_Data_Dictionary.md`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/docs/01_Methodology_and_Data_Dictionary.md) | ✅ **VERIFIED (PASS)** |
+| **FR-5: Rule Engine** | Standalone Python validation harness | [`scripts/validate_rules.py`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/scripts/validate_rules.py) | ✅ **VERIFIED (PASS)** |
+| **FR-6: Sigma Rules** | 16 production rules with PRD Section 8 schema | [`rules/**/*.yml`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/rules/) (16 files) | ✅ **VERIFIED (PASS)** |
 | **FR-7: Correlation** | 3 correlation rules (timeframe, threshold, chain) | Rules #6, #8, #14 | ✅ **VERIFIED (PASS)** |
-| **FR-8: ATT&CK Matrix** | 24 assessed techniques mapped across 10 tactics | [`mitre_attack/coverage_matrix.md`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/mitre_attack/coverage_matrix.md) | ✅ **VERIFIED (PASS)** |
-| **FR-9: Navigator Layer** | Valid ATT&CK Navigator v4.5 JSON layer | [`mitre_attack/cyberion_attack_navigator_layer.json`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/mitre_attack/cyberion_attack_navigator_layer.json) | ✅ **VERIFIED (PASS)** |
-| **FR-10: Threat Hunting** | 2 hypothesis reports (`certutil` / HTTPS IAT) | [`threat_hunts/TH-001`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/threat_hunts/TH-001_Living_Off_The_Land_Certutil_Bitsadmin.md) & [`TH-002`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/threat_hunts/TH-002_Periodic_HTTPS_C2_Beaconing_Jitter_Analysis.md) | ✅ **VERIFIED (PASS)** |
-| **FR-11: Incident Reports** | 2 forensic case studies with 5-Whys RCA | [`incident_reports/INC-0814`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/incident_reports/INC-2026-0814_Credential_Compromise_to_LSASS_Dump.md) & [`INC-0819`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/incident_reports/INC-2026-0819_Lateral_Movement_and_C2_Exfiltration.md) | ✅ **VERIFIED (PASS)** |
-| **FR-12: Playbooks & Tuning** | 3 IR playbooks, FP analysis, IOC intel, Pytest | [`playbooks/`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/playbooks/), [`docs/`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/docs/), [`tests/`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/tests/) | ✅ **VERIFIED (PASS)** |
+| **FR-8: ATT&CK Matrix** | 24 assessed techniques mapped across 10 tactics | [`mitre_attack/coverage_matrix.md`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/mitre_attack/coverage_matrix.md) | ✅ **VERIFIED (PASS)** |
+| **FR-9: Navigator Layer** | Valid ATT&CK Navigator v4.5 JSON layer | [`mitre_attack/cyberion_attack_navigator_layer.json`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/mitre_attack/cyberion_attack_navigator_layer.json) | ✅ **VERIFIED (PASS)** |
+| **FR-10: Threat Hunting** | 2 hypothesis reports (`certutil` / HTTPS IAT) | [`threat_hunts/TH-001`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/threat_hunts/TH-001_Living_Off_The_Land_Certutil_Bitsadmin.md) & [`TH-002`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/threat_hunts/TH-002_Periodic_HTTPS_C2_Beaconing_Jitter_Analysis.md) | ✅ **VERIFIED (PASS)** |
+| **FR-11: Incident Reports** | 2 forensic case studies with 5-Whys RCA | [`incident_reports/INC-0814`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/incident_reports/INC-2026-0814_Credential_Compromise_to_LSASS_Dump.md) & [`INC-0819`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/incident_reports/INC-2026-0819_Lateral_Movement_and_C2_Exfiltration.md) | ✅ **VERIFIED (PASS)** |
+| **FR-12: Playbooks & Tuning** | 3 IR playbooks, FP analysis, IOC intel, Pytest | [`playbooks/`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/playbooks/), [`docs/`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/docs/), [`tests/`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/tests/) | ✅ **VERIFIED (PASS)** |
 
 ---
 
@@ -160,7 +160,7 @@ Cyberion Defense Lab/
 
 ```bash
 # Clone or navigate to the repository root
-cd "Cyberion Defense Lab"
+cd "Cyberion ThreatShield"
 
 # Install pinned dependencies
 python -m pip install -r requirements.txt
@@ -191,7 +191,7 @@ python -m pytest tests/ -v
 
 ## 5. Testing & Verification Suite Details
 
-The automated test suite in [`tests/test_detections.py`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20Defense%20Lab/tests/test_detections.py) validates four distinct operational criteria:
+The automated test suite in [`tests/test_detections.py`](file:///c:/Users/Abhijeet%20Sharma/Desktop/Projects/Cyberion%20ThreatShield/tests/test_detections.py) validates four distinct operational criteria:
 
 1. **Schema Compliance (33 Tests):**
    * Verifies valid UUIDv4 format for all rule IDs.

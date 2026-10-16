@@ -1,7 +1,7 @@
 # Incident Response Playbook: PB-001
 
 **Playbook Title:** Compromised User & Service Account Response Procedure  
-**Project Code:** `CDL-DET-V2`  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
 **Playbook ID:** `PB-001`  
 **Target Threat Category:** Credential Access (`TA0006`), Initial Access (`TA0001`), Persistence (`TA0003`)  
 **Standard Compliance:** NIST SP 800-61 Rev. 2, CISA Incident Response Guidelines  

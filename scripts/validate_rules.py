@@ -1,6 +1,6 @@
 """
-CDL-DET-V2 | scripts/validate_rules.py
-========================================
+Cyberion ThreatShield | scripts/validate_rules.py
+=================================================
 Sigma Rule Validation & Telemetry Harness
 
 Loads all .yml Sigma rules from rules/**/,
@@ -546,7 +546,7 @@ STATUS_COLORS = {
 
 def render_table(results: list[dict]) -> None:
     table = Table(
-        title="[bold]CDL-DET-V2 | Sigma Rule Validation Report[/bold]",
+        title="[bold]Cyberion ThreatShield | Sigma Rule Validation Report[/bold]",
         box=box.ROUNDED,
         show_lines=True,
         header_style="bold magenta",
@@ -605,7 +605,7 @@ def render_summary(results: list[dict], datasets: dict, rules_dir: Path) -> None
     )
 
     panel_text = (
-        f"[bold]Engagement:[/bold] CDL-DET-V2 Rule Validation\n"
+        f"[bold]Engagement:[/bold] Cyberion ThreatShield (PROJ-CYBE-260802 / CDL-DET-V2)\n"
         f"[bold]Timestamp:[/bold] {datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}\n"
         f"[bold]Rules Dir:[/bold] {rules_dir}\n"
         f"[bold]Datasets:[/bold] {dataset_summary}\n\n"
@@ -631,7 +631,7 @@ def render_summary(results: list[dict], datasets: dict, rules_dir: Path) -> None
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="CDL-DET-V2 Sigma Rule Validation & Telemetry Harness",
+        description="Cyberion ThreatShield: Sigma Rule Validation & Telemetry Harness",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -671,8 +671,8 @@ def main() -> None:
     args = parse_args()
 
     console.print(Panel(
-        "[bold cyan]CDL-DET-V2[/bold cyan] | Sigma Rule Validation & Telemetry Harness\n"
-        "[dim]Detection Engineering & Threat Hunting Engagement — Phase 1[/dim]",
+        "[bold cyan]Cyberion ThreatShield[/bold cyan] | Sigma Rule Validation & Telemetry Harness\n"
+        "[dim]Detection Engineering & Threat Hunting Platform — Phase 1 (PROJ-CYBE-260802)[/dim]",
         border_style="bright_blue",
         expand=False,
     ))
@@ -701,7 +701,7 @@ def main() -> None:
         args.json_report.parent.mkdir(parents=True, exist_ok=True)
         report = {
             "meta": {
-                "engagement": "CDL-DET-V2",
+                "engagement": "Cyberion ThreatShield (PROJ-CYBE-260802 / CDL-DET-V2)",
                 "generated_at": datetime.now(timezone.utc).isoformat(),
                 "rules_dir": str(args.rules_dir),
                 "datasets_dir": str(args.datasets_dir),

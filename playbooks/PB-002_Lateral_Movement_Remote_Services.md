@@ -1,7 +1,7 @@
 # Incident Response Playbook: PB-002
 
 **Playbook Title:** Lateral Movement & Remote Services Containment Playbook  
-**Project Code:** `CDL-DET-V2`  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
 **Playbook ID:** `PB-002`  
 **Target Threat Category:** Lateral Movement (`TA0008`), Remote Services (`T1021`)  
 **Standard Compliance:** NIST SP 800-61 Rev. 2, MITRE D3FEND Framework  

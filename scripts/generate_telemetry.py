@@ -1,6 +1,6 @@
 """
-CDL-DET-V2 | scripts/generate_telemetry.py
-============================================
+Cyberion ThreatShield | scripts/generate_telemetry.py
+====================================================
 Generates three realistic security telemetry datasets for detection-engineering
 validation purposes. All events are synthetic but modelled on real-world schemas:
   - Windows Security & Sysmon  (EVTX-ATTACK-SAMPLES / Mordor / OTRF schema)
@@ -976,7 +976,7 @@ def build_linux_events() -> list:
 # ===========================================================================
 
 def main():
-    print("[*] CDL-DET-V2 Telemetry Generator starting...")
+    print("[*] Cyberion ThreatShield Telemetry Generator starting...")
 
     win_events = build_windows_events()
     with open(WIN_OUT, "w", encoding="utf-8") as fh:

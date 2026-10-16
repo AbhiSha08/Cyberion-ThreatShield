@@ -1,12 +1,12 @@
 {
-  "name": "Cyberion Defense Labs - SOC MITRE ATT&CK Coverage Layer",
+  "name": "Cyberion ThreatShield - SOC MITRE ATT&CK Coverage Layer",
   "versions": {
     "attack": "14",
     "navigator": "4.5",
     "layer": "4.5"
   },
   "domain": "enterprise-attack",
-  "description": "Enterprise ATT&CK detection coverage assessment for Cyberion Defense Labs Engagement CDL-DET-V2 across 24 assessed techniques spanning 10 tactics.",
+  "description": "Enterprise ATT&CK detection coverage assessment for Cyberion ThreatShield (PROJ-CYBE-260802 / CDL-DET-V2) across 24 assessed techniques spanning 10 tactics.",
   "filters": {
     "platforms": [
       "Windows",

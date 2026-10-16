@@ -1,6 +1,6 @@
 """
-CDL-DET-V2 | Automated Pytest Detection Engineering Test Suite
-==============================================================
+Cyberion ThreatShield | Automated Pytest Detection Engineering Test Suite
+========================================================================
 Validates:
 1. 100% Sigma YAML schema compliance (PRD Section 8 fields, UUIDs, MITRE tags).
 2. True-positive detection match counts (>= 1) for all 16 rules.

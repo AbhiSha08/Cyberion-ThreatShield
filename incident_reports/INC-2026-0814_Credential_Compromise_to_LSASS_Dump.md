@@ -1,7 +1,7 @@
 # Incident Case Report: INC-2026-0814
 
 **Incident Title:** External Brute-Force to Endpoint Compromise and LSASS Memory Credential Dumping  
-**Project Code:** `CDL-DET-V2`  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
 **Incident ID:** `INC-2026-0814`  
 **Date of Incident:** 2026-08-14  
 **Severity Rating:** **CRITICAL** (P1)  
@@ -13,7 +13,7 @@
 
 ## 1. Executive Summary & Impact Assessment
 
-On August 14, 2026, the Cyberion Defense Labs Security Operations Center (SOC) detected an aggressive multi-stage intrusion sequence targeting finance workstation **`WS-FIN-04.cyberion.local`** (`10.20.1.15`).
+On August 14, 2026, the Cyberion ThreatShield Security Operations Center (SOC) detected an aggressive multi-stage intrusion sequence targeting finance workstation **`WS-FIN-04.cyberion.local`** (`10.20.1.15`).
 
 An external adversary operating from IP address **`185.220.101.45`** conducted automated credential guessing against externally accessible Remote Desktop Protocol (RDP) services. Following three failed attempts, the adversary successfully authenticated against domain user account **`CYBERION\j.doe`**.
 

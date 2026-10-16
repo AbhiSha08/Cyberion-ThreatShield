@@ -1,7 +1,7 @@
 # Threat Hunt Report: TH-002
 
 **Hunt Title:** Periodic Outbound HTTPS C2 Beaconing and Jitter Statistical Analysis  
-**Project Code:** `CDL-DET-V2`  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
 **Hunt ID:** `TH-002`  
 **Target MITRE ATT&CK Techniques:** `T1071.001` (Application Layer Protocol: Web Protocols), `T1573.002` (Encrypted Channel: Asymmetric Cryptography)  
 **Assigned Hunter:** Abhijeet Amarnath Sharma - Senior Threat Hunter  

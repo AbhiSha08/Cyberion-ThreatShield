@@ -1,7 +1,7 @@
 # Threat Hunt Report: TH-001
 
 **Hunt Title:** Living-Off-The-Land Binary Egress File Transfer (`certutil.exe` & `bitsadmin.exe`)  
-**Project Code:** `CDL-DET-V2`  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
 **Hunt ID:** `TH-001`  
 **Target MITRE ATT&CK Techniques:** `T1105` (Ingress Tool Transfer), `T1197` (BITS Jobs), `T1027` (Obfuscated Files or Information)  
 **Assigned Hunter:** Abhijeet Amarnath Sharma - Senior Threat Hunter  
@@ -12,7 +12,7 @@
 
 ## 1. Executive Summary
 
-During scheduled proactive threat hunting engagement `TH-001`, the Cyberion Defense Labs threat hunting team analyzed endpoint process execution telemetry to identify dual-use Living-off-the-Land Binaries and Scripts (LOLBAS) utilized for unalerted ingress tool transfer.
+During scheduled proactive threat hunting engagement `TH-001`, the Cyberion ThreatShield threat hunting team analyzed endpoint process execution telemetry to identify dual-use Living-off-the-Land Binaries and Scripts (LOLBAS) utilized for unalerted ingress tool transfer.
 
 While the SOC maintains automated Sigma detections for script interpreters and encoded execution (`T1059.001`), legitimate administrative utilities such as `certutil.exe` and `bitsadmin.exe` were intentionally monitored via threat hunting rather than broad static alerts to reduce alert fatigue.
 

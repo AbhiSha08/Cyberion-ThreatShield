@@ -1,7 +1,7 @@
 # MITRE ATT&CK Coverage Matrix & Gap Analysis
 
-**Project Code:** `CDL-DET-V2`  
-**Engagement:** Cyberion Defense Labs Detection Engineering & Threat Hunting  
+**Project Code:** `PROJ-CYBE-260802` (internal baseline: `CDL-DET-V2`)  
+**Engagement:** Cyberion ThreatShield: Detection Engineering & Threat Hunting Platform  
 **Assessed Framework:** MITRE ATT&CK Enterprise v14  
 **Author:** Abhijeet Amarnath Sharma - Senior Detection Engineer  
 **Date:** 2026-08-15  
@@ -122,4 +122,4 @@ To render this layer in the official MITRE ATT&CK Navigator:
 
 ---
 
-*Verified with Cyberion Defense Labs Rule Validation Harness (`scripts/validate_rules.py`).*
+*Verified with Cyberion ThreatShield Rule Validation Harness (`scripts/validate_rules.py`).*
