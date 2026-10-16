@@ -207,6 +207,17 @@ The automated test suite in [`tests/test_detections.py`](file:///c:/Users/Abhije
    * Confirms valid JSON syntax and exactly 24 techniques in `cyberion_attack_navigator_layer.json`.
    * Asserts non-empty file presence for all Threat Hunts, Incident Reports, and Playbooks.
 
+   ## Execution & Verification Proof
+
+Here is the automated validation harness and pytest test suite running successfully against our telemetry datasets:
+
+### 1. Sigma Rule Validation Summary & Table
+![Validation Summary 1](assets/validation_top.png)
+![Validation Summary 2](assets/validation_bottom.png)
+
+### 2. Pytest Regression & False-Positive Suite (57/57 Passed)
+![Pytest Passing](assets/pytest_passing.png)
+
 ---
 
 ## 6. Defensive Simulation & Educational Disclaimer
