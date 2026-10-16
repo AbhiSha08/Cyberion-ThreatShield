@@ -1,0 +1,53 @@
+title: Shadow Copy Deletion via vssadmin or wmic to Inhibit System Recovery
+id: d4e5f6a7-b8c9-0123-defa-234567890123
+status: stable
+description: |
+  Detects execution of vssadmin.exe or wmic.exe with arguments that delete all Volume
+  Shadow Copies (VSS). This is a critical ransomware-precursor and defence evasion
+  technique (T1490 - Inhibit System Recovery) used to prevent forensic recovery and
+  incident response using snapshots. This action is almost never performed legitimately
+  in a production environment. Campaign context: support_adm (attacker-created account)
+  executed 'vssadmin delete shadows /all /quiet' on WS-FIN-04 before potential ransomware
+  deployment, captured in both Security EID 4688 and Sysmon EID 1.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1490/
+  - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1490/T1490.md
+  - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_vssadmin_delete_shadows.yml
+tags:
+  - attack.impact
+  - attack.t1490
+  - attack.defense_evasion
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_vssadmin_4688:
+    EventID: 4688
+    NewProcessName|endswith: '\vssadmin.exe'
+    CommandLine|contains|all:
+      - 'delete'
+      - 'shadows'
+  selection_vssadmin_sysmon:
+    EventID: 1
+    Image|endswith: '\vssadmin.exe'
+    CommandLine|contains|all:
+      - 'delete'
+      - 'shadows'
+  selection_wmic:
+    EventID: 4688
+    NewProcessName|endswith: '\wmic.exe'
+    CommandLine|contains|all:
+      - 'shadowcopy'
+      - 'delete'
+  condition: 1 of selection_*
+falsepositives:
+  - Scheduled backup rotation scripts that deliberately remove old shadow copies as part of space management (should be via backup software APIs, not command-line)
+  - Disaster recovery testing procedures executed under formal change control with explicit authorization
+level: critical
+level_rationale: >
+  Critical severity because shadow copy deletion has virtually no legitimate use case
+  outside of a deliberately destructive context. It directly enables ransomware attacks
+  by eliminating the primary Windows recovery mechanism. Any occurrence should trigger
+  immediate IR escalation and endpoint isolation.

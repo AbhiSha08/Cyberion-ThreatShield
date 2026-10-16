@@ -1,0 +1,272 @@
+{
+  "name": "Cyberion Defense Labs - SOC MITRE ATT&CK Coverage Layer",
+  "versions": {
+    "attack": "14",
+    "navigator": "4.5",
+    "layer": "4.5"
+  },
+  "domain": "enterprise-attack",
+  "description": "Enterprise ATT&CK detection coverage assessment for Cyberion Defense Labs Engagement CDL-DET-V2 across 24 assessed techniques spanning 10 tactics.",
+  "filters": {
+    "platforms": [
+      "Windows",
+      "Linux",
+      "Network"
+    ]
+  },
+  "sorting": 0,
+  "layout": {
+    "layout": "side",
+    "aggregateFunction": "average",
+    "showID": true,
+    "showName": true,
+    "showAggregateScores": true,
+    "countUnscored": false
+  },
+  "hideDisabled": false,
+  "techniques": [
+    {
+      "techniqueID": "T1078",
+      "tactic": "initial-access",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_valid_accounts_compromised_logon.yml (ID: a1b2c3d4-e5f6-7890-abcd-ef1234567890) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1566.001",
+      "tactic": "initial-access",
+      "score": 0,
+      "color": "#e74c3c",
+      "comment": "Not Covered: Spearphishing attachment telemetry not ingested in current baseline | Email gateway integration gap",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1059.001",
+      "tactic": "execution",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_powershell_encoded_command.yml (ID: b2c3d4e5-f6a7-8901-bcde-f12345678901) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1053.005",
+      "tactic": "execution",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_schtasks_suspicious_creation.yml (ID: c3d4e5f6-a7b8-9012-cdef-123456789012) | Matches: 6",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1053.003",
+      "tactic": "persistence",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_lnx_cron_persistence_modification.yml (ID: 84d29921-cdb4-49d1-855f-c771efd52967) | Matches: 3",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1547.001",
+      "tactic": "persistence",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_registry_run_key_persistence.yml (ID: e5f6a7b8-c9d0-1234-efab-345678901234) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1136.001",
+      "tactic": "persistence",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_unauthorized_local_account_privilege_chain.yml (ID: ccb8c702-8a68-48a5-b2c7-9a80c6e7491a) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1098",
+      "tactic": "privilege-escalation",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_unauthorized_local_account_privilege_chain.yml (ID: ccb8c702-8a68-48a5-b2c7-9a80c6e7491a) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1548.003",
+      "tactic": "privilege-escalation",
+      "score": 50,
+      "color": "#f39c12",
+      "comment": "Partially Covered: Sudo escalation logged in auditd/auth | Target for Phase 3 Threat Hunt TH-002",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1027",
+      "tactic": "defense-evasion",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_powershell_encoded_command.yml (ID: b2c3d4e5-f6a7-8901-bcde-f12345678901) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1105",
+      "tactic": "defense-evasion",
+      "score": 0,
+      "color": "#e74c3c",
+      "comment": "Not Covered / Threat Hunt Target: Ingress tool transfer via certutil.exe reserved for Phase 3 TH-001",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1197",
+      "tactic": "defense-evasion",
+      "score": 0,
+      "color": "#e74c3c",
+      "comment": "Not Covered / Threat Hunt Target: BITSAdmin download persistence reserved for Phase 3 TH-001",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1087",
+      "tactic": "discovery",
+      "score": 50,
+      "color": "#f39c12",
+      "comment": "Partially Covered: Account enumeration logged in Security EID 4688 | Addressed via proactive hunting in TH-001",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1110.001",
+      "tactic": "credential-access",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_brute_force_to_success_correlation.yml (ID: bf992871-ef33-44c2-b0d2-22b47d9196e5) | Matches: 8",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1110.003",
+      "tactic": "credential-access",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_lnx_ssh_password_spray_and_shadow_access.yml (ID: 034b2474-e370-4595-b27f-76d8daa7e600) | Matches: 10",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1558.003",
+      "tactic": "credential-access",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_kerberoasting_rc4_ticket_request.yml (ID: 34f07646-4cd2-43ee-b6eb-74a384030bed) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1003.001",
+      "tactic": "credential-access",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_lsass_memory_dump_access.yml (ID: 14335991-00c8-4591-a57a-3a74fbf4d4de) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1003.008",
+      "tactic": "credential-access",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_lnx_ssh_password_spray_and_shadow_access.yml (ID: 034b2474-e370-4595-b27f-76d8daa7e600) | Matches: 10",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1021.001",
+      "tactic": "lateral-movement",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_zeek_internal_rdp_smb_lateral_pivot.yml (ID: d20b0e40-70e6-44f2-ae67-7ade870bb576) | Matches: 5",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1021.002",
+      "tactic": "lateral-movement",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_smb_admin_share_lateral_movement.yml (ID: c92ff287-f57a-49a9-9805-7cc963163a07) | Matches: 3",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1071.001",
+      "tactic": "command-and-control",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_zeek_https_c2_periodic_beaconing.yml (ID: 6403c20f-8e8d-4589-866c-5fb8580b32e0) | Matches: 12",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1572",
+      "tactic": "command-and-control",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_zeek_dns_tunneling_anomalous_txt.yml (ID: a91a97c0-a59f-4cd8-8555-b8cde32ea739) | Matches: 4",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1048",
+      "tactic": "exfiltration",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_zeek_high_volume_exfil_nonstandard_port.yml (ID: 1f3919f5-22ae-4796-a771-70d4d88e6afc) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    },
+    {
+      "techniqueID": "T1490",
+      "tactic": "impact",
+      "score": 100,
+      "color": "#2ecc71",
+      "comment": "Covered: sigma_win_vssadmin_shadow_copy_deletion.yml (ID: d4e5f6a7-b8c9-0123-defa-234567890123) | Matches: 2",
+      "enabled": true,
+      "metadata": []
+    }
+  ],
+  "gradient": {
+    "colors": [
+      "#e74c3c",
+      "#f39c12",
+      "#2ecc71"
+    ],
+    "minValue": 0,
+    "maxValue": 100
+  },
+  "legendItems": [
+    {
+      "label": "Covered (Score 100)",
+      "color": "#2ecc71"
+    },
+    {
+      "label": "Partially Covered (Score 50)",
+      "color": "#f39c12"
+    },
+    {
+      "label": "Not Covered / Hunt Target (Score 0)",
+      "color": "#e74c3c"
+    }
+  ],
+  "showTacticRowBackground": true,
+  "tacticRowBackground": "#2c3e50",
+  "selectTechniquesAcrossTactics": true,
+  "selectSubtechniquesWithParent": true
+}

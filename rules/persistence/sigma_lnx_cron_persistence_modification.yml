@@ -1,0 +1,38 @@
+title: Linux Cron Table or Cron Directory Persistence Modification
+id: 84d29921-cdb4-49d1-855f-c771efd52967
+status: stable
+description: |
+  Detects modifications to Linux scheduled tasks via crontab editing or file creation
+  under /etc/cron* directories. Adversaries abuse the cron daemon (T1053.003 - Scheduled
+  Task/Job: Cron) to execute malicious scripts or payloads repeatedly at specified intervals
+  for persistence. Monitored artifacts include auditd syscalls with cron keys, path
+  modifications in /etc/cron.d, and PAM crontab edit events. Campaign context: compromised
+  account svc_backup injected a rogue cron job /etc/cron.d/svc_update on SRV-DB-01.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1053/003/
+  - https://github.com/SigmaHQ/sigma/blob/master/rules/linux/auditd/lnx_auditd_cron_creation.yml
+tags:
+  - attack.persistence
+  - attack.t1053.003
+logsource:
+  product: linux
+  service: auditd
+detection:
+  selection_auditd_key:
+    key: 'cron_write'
+  selection_auditd_path:
+    name|startswith: '/etc/cron'
+  selection_auth_edit:
+    program: 'CRON'
+    message|contains: 'BEGIN EDIT'
+  condition: 1 of selection_*
+falsepositives:
+  - Legitimate system administration maintaining scheduled backup or log rotation jobs
+  - Package manager updates (apt, yum) creating maintenance cron files during installation
+level: high
+level_rationale: >
+  High severity because unauthorized cron job modifications grant persistent root-level
+  execution that survives system reboots. Modifications performed by service accounts rather
+  than interactive administrators represent elevated operational risk.

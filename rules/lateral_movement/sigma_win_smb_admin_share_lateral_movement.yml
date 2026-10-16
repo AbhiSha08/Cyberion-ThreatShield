@@ -1,0 +1,42 @@
+title: SMB Administrative Share Access for Lateral Movement
+id: c92ff287-f57a-49a9-9805-7cc963163a07
+status: stable
+description: |
+  Detects network access to default Windows administrative shares (ADMIN$, C$, IPC$)
+  captured in Security EventID 5140 (network share object accessed) or EventID 5145 (detailed
+  file share access) originating from internal workstation endpoints. Adversaries connect
+  to administrative shares (T1021.002 - Remote Services: SMB/Windows Admin Shares) to stage
+  remote payloads, access registry hives, or pivot to high-value domain controllers.
+  Campaign context: WS-FIN-04 accessed ADMIN$, C$, and config\SAM on DC01 (10.20.0.10).
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1021/002/
+  - https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5140
+  - https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5145
+tags:
+  - attack.lateral_movement
+  - attack.t1021.002
+logsource:
+  product: windows
+  service: security
+detection:
+  selection_share:
+    EventID:
+      - 5140
+      - 5145
+    ShareName|contains:
+      - 'ADMIN$'
+      - 'C$'
+      - 'IPC$'
+  filter_local:
+    IpAddress: '127.0.0.1'
+  condition: selection_share and not filter_local
+falsepositives:
+  - Centralized backup software accessing administrative shares for server image backups
+  - Vulnerability assessment scanners (Nessus, Qualys) performing authenticated host scans
+level: high
+level_rationale: >
+  High severity because administrative shares provide full remote disk and RPC access.
+  Access originating from standard user workstations towards servers or domain controllers
+  is indicative of adversary credential reuse and active network pivoting.

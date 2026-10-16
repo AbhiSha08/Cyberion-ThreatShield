@@ -1,0 +1,45 @@
+title: Suspicious Process Open Access to LSASS Memory - Credential Dumping
+id: 14335991-00c8-4591-a57a-3a74fbf4d4de
+status: stable
+description: |
+  Detects suspicious process handle requests to the Local Security Authority Subsystem Service
+  (lsass.exe) with high-privilege access rights such as PROCESS_VM_READ (0x1010) or PROCESS_ALL_ACCESS
+  (0x1fffff) captured in Sysmon EventID 10. Adversaries dump LSASS memory to extract plaintext
+  passwords, NTLM hashes, and Kerberos tickets (T1003.001 - OS Credential Dumping: LSASS Memory)
+  using tools like ProcDump, Mimikatz, or comsvcs.dll via rundll32.exe. Campaign context: rundll32.exe
+  and procdump64.exe requested 0x1010 and 0x1fffff access to lsass.exe on WS-FIN-04.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1003/001/
+  - https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon
+  - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/sysmon/sysmon_lsass_memdump.yml
+tags:
+  - attack.credential_access
+  - attack.t1003.001
+logsource:
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    EventID: 10
+    TargetImage|endswith: '\lsass.exe'
+    GrantedAccess|contains:
+      - '0x1010'
+      - '0x1fffff'
+      - '0x1410'
+      - '0x1038'
+  filter_legit:
+    SourceImage|endswith:
+      - '\csrss.exe'
+      - '\wininit.exe'
+      - '\services.exe'
+  condition: selection and not filter_legit
+falsepositives:
+  - Antivirus and EDR agents performing memory scanning on lsass.exe
+  - Microsoft Defender or Windows Error Reporting collecting diagnostic crash dumps
+level: critical
+level_rationale: >
+  Critical severity because LSASS contains active authentication secrets for all logged-on
+  users, domain administrators, and computer credentials. Dumping LSASS memory directly leads
+  to domain-wide credential compromise and immediate lateral movement.

@@ -1,0 +1,37 @@
+title: Zeek Internal Network RDP or SMB Lateral Movement Pivot
+id: d20b0e40-70e6-44f2-ae67-7ade870bb576
+status: stable
+description: |
+  Detects anomalous internal network connections over Remote Desktop Protocol (port 3389)
+  or Server Message Block (port 445) captured in Zeek conn.log. Workstation-to-workstation
+  or workstation-to-domain controller traffic over management protocols indicates active
+  lateral pivoting (T1021.001 - Remote Services: Remote Desktop Protocol). In well-architected
+  enterprise networks, direct peer-to-peer RDP and SMB connections are blocked by host firewalls.
+  Campaign context: WS-FIN-04 (10.20.1.15) established RDP and SMB connections to DC01 and FS01.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1021/001/
+  - https://docs.zeek.org/en/current/scripts/base/protocols/conn/main.zeek.html
+tags:
+  - attack.lateral_movement
+  - attack.t1021.001
+logsource:
+  product: zeek
+  service: conn
+detection:
+  selection:
+    id.resp_p:
+      - 3389
+      - 445
+    id.orig_h|startswith: '10.20.'
+    id.resp_h|startswith: '10.20.'
+  condition: selection
+falsepositives:
+  - IT administrator workstations performing remote administration or file transfers across subnets
+  - Automated deployment or inventory software performing subnet network sweeps
+level: medium
+level_rationale: >
+  Medium severity because internal SMB/RDP traffic may occasionally occur during legitimate
+  remote assistance sessions. Elevated to high when correlated with prior credential dumping
+  events or connections originating from non-IT subnets.

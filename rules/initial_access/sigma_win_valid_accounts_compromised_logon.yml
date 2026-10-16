@@ -1,0 +1,52 @@
+title: Suspicious Network or Remote Interactive Logon After Brute Force - Valid Account Compromise
+id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+status: stable
+description: |
+  Detects a successful Windows logon (EventID 4624) via network (LogonType 3) or
+  remote interactive / RDP (LogonType 10) originating from an external or unexpected
+  IP address targeting service accounts or privileged user accounts. This pattern
+  is consistent with an attacker leveraging valid credentials obtained through brute
+  force (T1110) or credential stuffing to gain initial access (T1078).
+  Campaign context: svc_backup and j.doe were compromised via NTLM password spray
+  and RDP brute force from 185.220.101.45.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1078/
+  - https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624
+  - https://github.com/OTRF/Security-Datasets
+  - https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+tags:
+  - attack.initial_access
+  - attack.t1078
+  - attack.t1110
+  - attack.credential_access
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4624
+    LogonType:
+      - 3
+      - 10
+    IpAddress|contains:
+      - "185.220.101.45"
+      - "91.214.124.88"
+      - "45.133.1.92"
+  filter_internal:
+    IpAddress|startswith:
+      - "10."
+      - "192.168."
+      - "172."
+      - "-"
+  condition: selection and not filter_internal
+falsepositives:
+  - VPN concentrators or split-tunnel configurations that present external IPs for internal users
+  - Authorized external vendor or third-party remote access from known IP ranges
+level: high
+level_rationale: >
+  High severity because a successful authenticated logon from an external IP into
+  a service account or domain user account strongly indicates initial compromise.
+  Combined with antecedent brute-force failures (4625) from the same source IP,
+  this is near-certain evidence of credential compromise and active intrusion.

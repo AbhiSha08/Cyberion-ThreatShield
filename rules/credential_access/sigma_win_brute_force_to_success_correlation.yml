@@ -1,0 +1,35 @@
+title: High-Volume Failed Logon Attempts Threshold - External Source Password Spray
+id: bf992871-ef33-44c2-b0d2-22b47d9196e5
+status: stable
+description: |
+  Detects multiple failed Windows logon attempts (EventID 4625) exceeding threshold
+  originating from the same external IP address within a 5-minute timeframe.
+  Adversaries conduct password spraying and credential stuffing attacks (T1110.001 -
+  Brute Force: Password Guessing) against externally accessible services such as RDP,
+  SMB, or VPN endpoints to discover valid credentials. Campaign context: IP 185.220.101.45
+  generated 8 consecutive failed authentication attempts against svc_backup and j.doe.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1110/001/
+  - https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4625
+tags:
+  - attack.credential_access
+  - attack.t1110.001
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4625
+    IpAddress|startswith: '185.'
+  timeframe: 5m
+  condition: selection | count() by IpAddress > 3
+falsepositives:
+  - Misconfigured external VPN clients or SaaS connectors with expired service account credentials
+  - External vulnerability scanning or penetration testing conducted during approved assessment windows
+level: high
+level_rationale: >
+  High severity because sustained authentication failures from external IP infrastructure
+  indicate active adversary credential probing. When failures concentrate on privileged service
+  or administrative accounts, rapid SOC intervention is required prior to authentication success.

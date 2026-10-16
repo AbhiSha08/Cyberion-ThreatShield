@@ -1,0 +1,60 @@
+title: Suspicious Scheduled Task Creation via schtasks.exe
+id: c3d4e5f6-a7b8-9012-cdef-123456789012
+status: stable
+description: |
+  Detects the creation of a new scheduled task via schtasks.exe with the /create flag
+  (EventID 4688 or Sysmon EventID 1). Adversaries commonly use scheduled tasks for
+  execution and persistence (T1053.005), particularly when:
+  - The task runs a binary from a suspicious path (Temp, AppData, ProgramData)
+  - The task runs as SYSTEM (elevated privilege persistence)
+  - The task interval is very short (MINUTE/HOURLY)
+  - The command includes an external binary or payload path
+  Campaign context: j.doe created a SYSTEM-privileged task named WindowsUpdate
+  executing C:\Windows\Temp\update.dll every 5 minutes.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1053/005/
+  - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1053.005/T1053.005.md
+  - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_schtasks_creation.yml
+tags:
+  - attack.execution
+  - attack.persistence
+  - attack.t1053.005
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_4688:
+    EventID: 4688
+    NewProcessName|endswith: '\schtasks.exe'
+    CommandLine|contains|all:
+      - '/create'
+      - '/tr'
+  selection_sysmon:
+    EventID: 1
+    Image|endswith: '\schtasks.exe'
+    CommandLine|contains|all:
+      - '/create'
+      - '/tr'
+  selection_suspicious_path:
+    CommandLine|contains:
+      - '\Temp\'
+      - '\AppData\Local\Temp\'
+      - '\ProgramData\'
+      - '\Users\Public\'
+  filter_benign_query:
+    CommandLine|contains:
+      - '/query'
+      - '/delete'
+      - '/change'
+  condition: (1 of selection_*) and selection_suspicious_path and not filter_benign_query
+falsepositives:
+  - Legitimate software deployment tools (SCCM, PDQ Deploy) that schedule tasks with binaries in non-standard paths
+  - IT administrative scripts that create maintenance tasks pointing to staging directories
+level: high
+level_rationale: >
+  High severity because scheduled task creation with binaries from Temp or AppData paths
+  combined with SYSTEM execution context is a textbook persistence mechanism. This
+  technique provides automatic execution at system startup or on defined intervals and
+  is extremely effective for maintaining long-term access.

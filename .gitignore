@@ -1,0 +1,21 @@
+# Python / Pytest cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual Environments
+venv/
+env/
+ENV/
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local validation output reports (optional, but keeps repo clean)
+docs/validation_results.json

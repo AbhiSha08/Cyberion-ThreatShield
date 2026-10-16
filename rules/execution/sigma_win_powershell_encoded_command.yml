@@ -1,0 +1,56 @@
+title: PowerShell Execution with Encoded Command Flag
+id: b2c3d4e5-f6a7-8901-bcde-f12345678901
+status: stable
+description: |
+  Detects process creation events (Sysmon EventID 1 or Security EventID 4688) where
+  powershell.exe is launched with the -EncodedCommand (-enc) flag, a common obfuscation
+  technique used by adversaries to hide malicious PowerShell payloads from command-line
+  inspection tools. Encoded commands Base64-encode the payload to evade string-based
+  detections. T1059.001 (PowerShell) is one of the most prevalent ATT&CK techniques
+  observed in active campaigns. Campaign context: j.doe executed an encoded reverse
+  shell payload connecting to 185.220.101.45:443.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1059/001/
+  - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1059.001/T1059.001.md
+  - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_powershell_encoded_cmd.yml
+tags:
+  - attack.execution
+  - attack.t1059.001
+  - attack.defense_evasion
+  - attack.t1027
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_4688:
+    EventID: 4688
+    NewProcessName|endswith: '\powershell.exe'
+    CommandLine|contains:
+      - '-EncodedCommand'
+      - '-enc '
+      - '-ec '
+  selection_sysmon:
+    EventID: 1
+    Image|endswith: '\powershell.exe'
+    CommandLine|contains:
+      - '-EncodedCommand'
+      - '-enc '
+      - '-ec '
+  filter_benign:
+    CommandLine|contains:
+      - 'Get-Date'
+      - 'Get-Service'
+      - 'Get-Process'
+  condition: (1 of selection_*) and not filter_benign
+falsepositives:
+  - Legitimate IT automation scripts (SCCM, Intune, Ansible) using encoded PowerShell for deployment tasks
+  - Software vendors that use encoded PowerShell during installation or update routines
+level: high
+level_rationale: >
+  High severity because the -EncodedCommand flag has minimal legitimate use in interactive
+  administration and is predominantly used for obfuscation of malicious payloads. The
+  combination with suspicious parent processes (cmd.exe on a user workstation) elevates
+  confidence. Critical investigation is required as this is frequently the first execution
+  step after initial access.

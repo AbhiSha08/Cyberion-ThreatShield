@@ -1,0 +1,36 @@
+title: Zeek HTTPS Periodic Outbound C2 Beaconing
+id: 6403c20f-8e8d-4589-866c-5fb8580b32e0
+status: stable
+description: |
+  Detects regular periodic outbound HTTPS network connections to external command and
+  control (C2) infrastructure captured in Zeek conn.log. Adversaries configure C2 implants
+  and reverse shells to check in with external listeners at fixed or jittered intervals
+  (T1071.001 - Application Layer Protocol: Web Protocols) to receive operator commands.
+  This correlation rule aggregates connection frequency from internal endpoints to suspicious
+  external destinations over 10-minute intervals. Campaign context: WS-FIN-04 established
+  8 consecutive HTTPS callbacks to 185.220.101.45 every ~60 seconds.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1071/001/
+  - https://docs.zeek.org/en/current/scripts/base/protocols/conn/main.zeek.html
+tags:
+  - attack.command_and_control
+  - attack.t1071.001
+logsource:
+  product: zeek
+  service: conn
+detection:
+  selection:
+    id.resp_p: 443
+    id.resp_h: '185.220.101.45'
+  timeframe: 10m
+  condition: selection | count() by id.orig_h > 5
+falsepositives:
+  - Legitimate SaaS applications (Slack, Teams, Zoom) maintaining persistent WebSocket or keep-alive channels
+  - Operating system telemetry and update services polling cloud endpoints at regular intervals
+level: high
+level_rationale: >
+  High severity because persistent outbound beaconing establishes active adversary command
+  and control channels. Once interactive C2 is established, operators can deploy follow-on
+  modules, pivot across internal subnets, and exfiltrate proprietary data.

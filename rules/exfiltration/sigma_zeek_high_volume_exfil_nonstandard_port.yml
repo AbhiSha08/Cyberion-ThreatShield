@@ -1,0 +1,39 @@
+title: Zeek High-Volume Outbound Data Exfiltration over Non-Standard Port
+id: 1f3919f5-22ae-4796-a771-70d4d88e6afc
+status: stable
+description: |
+  Detects anomalous high-volume outbound data transfers (orig_bytes > 10 MB) over non-standard
+  ports such as 8443 destined to external IP addresses captured in Zeek conn.log. Adversaries
+  frequently route exfiltrated archives or database dumps over alternative TCP ports
+  (T1048 - Exfiltration Over Alternative Protocol) to evade standard HTTP/S proxy egress
+  monitoring and rate-limiting inspections. Campaign context: WS-FIN-04 exfiltrated 54 MB
+  and 21 MB of compressed sensitive documents to 45.133.1.92 over port 8443.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1048/
+  - https://docs.zeek.org/en/current/scripts/base/protocols/conn/main.zeek.html
+tags:
+  - attack.exfiltration
+  - attack.t1048
+logsource:
+  product: zeek
+  service: conn
+detection:
+  selection:
+    id.resp_p: 8443
+    orig_bytes|gt: 10000000
+  filter_internal:
+    id.resp_h|startswith:
+      - '10.'
+      - '192.168.'
+      - '172.16.'
+  condition: selection and not filter_internal
+falsepositives:
+  - Enterprise software updates or cloud backup agents communicating with vendor endpoints on port 8443
+  - Large file transfers to sanctioned corporate cloud development environments
+level: critical
+level_rationale: >
+  Critical severity because large outbound data transfers to untrusted external IP addresses
+  over non-standard ports represent active data theft in progress. Direct loss of sensitive
+  financial, customer, or proprietary source code requires immediate containment.

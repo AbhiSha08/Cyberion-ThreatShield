@@ -1,0 +1,37 @@
+title: Kerberos TGS Request with Weak RC4 Encryption - Kerberoasting Activity
+id: 34f07646-4cd2-43ee-b6eb-74a384030bed
+status: stable
+description: |
+  Detects Kerberos Ticket Granting Service (TGS) ticket requests (EventID 4769) requesting
+  the weak RC4-HMAC encryption type (0x17). Adversaries request TGS tickets for service accounts
+  with registered Service Principal Names (SPNs) using RC4 encryption because RC4 tickets are
+  significantly faster to crack offline using tools like Hashcat or John the Ripper (T1558.003 -
+  Steal or Forge Kerberos Tickets: Kerberoasting). Campaign context: adversary requested RC4
+  tickets for svc_mssql and svc_backup from 10.20.1.15.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1558/003/
+  - https://adsecurity.org/?p=3458
+  - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/builtin/security/win_security_kerberoasting.yml
+tags:
+  - attack.credential_access
+  - attack.t1558.003
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4769
+    TicketEncryptionType: '0x17'
+  filter_krbtgt:
+    ServiceName|contains: 'krbtgt'
+  condition: selection and not filter_krbtgt
+falsepositives:
+  - Legacy Active Directory applications or Windows Server 2003/2008 hosts that only support RC4
+  - Misconfigured third-party identity management software requesting legacy ticket formats
+level: high
+level_rationale: >
+  High severity because modern Active Directory environments default to AES encryption (0x12).
+  A downgrade to RC4 (0x17) specifically targeting service accounts is a hallmark indicator of
+  active Kerberoasting, providing adversaries with hashes that can be cracked to yield plaintext passwords.

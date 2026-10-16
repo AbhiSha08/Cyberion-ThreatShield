@@ -1,0 +1,53 @@
+title: Registry Run Key or RunOnce Key Modification for Persistence
+id: e5f6a7b8-c9d0-1234-efab-345678901234
+status: stable
+description: |
+  Detects modification of Windows registry Run or RunOnce keys via reg.exe or
+  process creation events. Adversaries add entries to these keys to ensure their
+  malware executes automatically at user logon (T1547.001 - Boot or Logon Autostart
+  Execution: Registry Run Keys / Startup Folder). Common target keys include:
+  - HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+  - HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+  - HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce
+  Campaign context: j.doe added WindowsSvcHost value pointing to C:\Windows\Temp\update.dll
+  to HKLM\...\CurrentVersion\Run for automatic execution on every logon.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1547/001/
+  - https://github.com/redcanaryco/atomic-red-team/blob/master/atomics/T1547.001/T1547.001.md
+  - https://github.com/SigmaHQ/sigma/blob/master/rules/windows/process_creation/proc_creation_win_reg_add_run_key.yml
+tags:
+  - attack.persistence
+  - attack.t1547.001
+  - attack.defense_evasion
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection_4688:
+    EventID: 4688
+    NewProcessName|endswith: '\reg.exe'
+    CommandLine|contains|all:
+      - 'CurrentVersion\Run'
+      - 'add'
+  selection_sysmon:
+    EventID: 1
+    Image|endswith: '\reg.exe'
+    CommandLine|contains|all:
+      - 'CurrentVersion\Run'
+      - 'add'
+  filter_uninstall:
+    CommandLine|contains:
+      - '/delete'
+      - '-delete'
+  condition: (1 of selection_*) and not filter_uninstall
+falsepositives:
+  - Legitimate software installers (Adobe, Microsoft, third-party applications) adding startup entries during installation
+  - IT configuration management tools (Group Policy, SCCM baseline configurations) that manage Run key entries
+level: medium
+level_rationale: >
+  Medium severity because Run key modification alone has many legitimate software triggers
+  (most commercial software adds entries here). The risk is significantly elevated when
+  the value data points to a non-standard path (Temp, AppData) or an unsigned binary.
+  Correlation with preceding process creation events is required to confirm malicious intent.

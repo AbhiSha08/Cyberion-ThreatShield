@@ -1,0 +1,40 @@
+title: Zeek DNS Tunneling and High-Entropy TXT Query Exfiltration
+id: a91a97c0-a59f-4cd8-8555-b8cde32ea739
+status: stable
+description: |
+  Detects anomalous DNS queries indicative of DNS tunneling protocols (T1572 - Protocol
+  Tunneling) and covert data exfiltration captured in Zeek dns.log. Adversaries abuse the
+  DNS protocol to encode commands or exfiltrate sensitive data inside subdomain labels and
+  TXT record query payloads to bypass egress firewalls and proxy filters. Monitored indicators
+  include TXT query type combined with tunnel or exfiltration subdomain patterns.
+  Campaign context: WS-FIN-04 issued 4 Base64-encoded TXT queries to *.tunnel.cyberion-exfil.com.
+author: Abhijeet Amarnath Sharma - Cyberion Detection Engineering
+date: 2026/08/15
+references:
+  - https://attack.mitre.org/techniques/T1572/
+  - https://docs.zeek.org/en/current/scripts/base/protocols/dns/main.zeek.html
+tags:
+  - attack.command_and_control
+  - attack.t1572
+  - attack.exfiltration
+  - attack.t1048
+logsource:
+  product: zeek
+  service: dns
+detection:
+  selection_txt:
+    id.resp_p: 53
+    qtype_name: 'TXT'
+  selection_domain:
+    query|contains:
+      - '.tunnel.'
+      - 'exfil'
+  condition: selection_txt and selection_domain
+falsepositives:
+  - Legitimate DNS-based verification checks (SPF records, DKIM key lookups, Google Site Verification)
+  - Security software (antivirus reputation lookup engines) using proprietary DNS TXT queries
+level: high
+level_rationale: >
+  High severity because DNS tunneling represents an evasive covert channel that bypasses
+  standard web proxies and egress boundary controls. It enables bidirectional C2 communication
+  even in heavily restricted network segments where all other protocols are blocked.
